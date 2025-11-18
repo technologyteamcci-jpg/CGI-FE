@@ -32,6 +32,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import Image from "next/image"
+import { bigLogo, logo, smallLogo } from "@/lib/assets"
 
 const data = {
   user: {
@@ -46,23 +48,23 @@ const data = {
       icon: IconDashboard,
     },
     {
-      title: "Lifecycle",
-      url: "#",
+      title: "Campus",
+      url: "/campus",
       icon: IconListDetails,
     },
     {
-      title: "Analytics",
-      url: "#",
+      title: "Events",
+      url: "/events",
       icon: IconChartBar,
     },
     {
-      title: "Projects",
-      url: "#",
-      icon: IconFolder,
+      title: "Members",
+      url: "/members",
+      icon: IconUsers,
     },
     {
-      title: "Team",
-      url: "#",
+      title: "Pastors",
+      url: "/pastors",
       icon: IconUsers,
     },
   ],
@@ -158,11 +160,12 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarMenuItem>
             <SidebarMenuButton
               asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
+              className="data-[slot=sidebar-menu-button]:!p-1.5 "
             >
               <a href="#">
-                <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                {/* <IconInnerShadowTop className="!size-5" /> */}
+                <Image src={smallLogo} alt="cci logo" className="w-10 h-5" />
+                <span className="text-base font-semibold italic">Celebration Church</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
@@ -170,7 +173,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        {/* <NavDocuments items={data.documents} /> */}
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>

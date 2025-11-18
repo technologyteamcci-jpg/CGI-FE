@@ -10,4 +10,4 @@ export {
 
 export { virtualListBanner };
 
-export { logo, bigLogo } from "./logos";
+export { logo, bigLogo, smallLogo } from "./logos";

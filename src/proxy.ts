@@ -23,5 +23,16 @@ export function proxy(req: NextRequest) {
 
 export const config = {
     // include /login so middleware can redirect logged-in users away from it
-    matcher: ["/", "/dashboard/:path*", "/profile/:path*", "/login"],
+    matcher: ["/",
+        "/dashboard/:path*",
+        "/profile/:path*",
+        "/login",
+        "/settings/:path*",
+        "/users/:path*",
+        "/prompts/:path*",
+        "/data-library/:path*",
+        "/campus/:path*",
+        "/events/:path*",
+        "/members/:path*",
+        "/pastors/:path*"],
 };
