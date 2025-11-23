@@ -8,12 +8,22 @@ export function proxy(req: NextRequest) {
 
     console.log(token, cookieKey)
     // if not logged in and not already on /login => send to /login
-    if (!token && req.nextUrl.pathname !== "/login") {
+    if (!token && (req.nextUrl.pathname !== "/login")) {
+        return NextResponse.redirect(new URL("/login", req.url));
+    }
+
+    if (!token && (req.nextUrl.pathname === "/")) {
         return NextResponse.redirect(new URL("/login", req.url));
     }
 
     // if logged in and requesting /login => send to /dashboard
     if (token && req.nextUrl.pathname === "/login") {
+        return NextResponse.redirect(new URL("/dashboard", req.url));
+    }
+
+
+    // if logged in and requesting /login => send to /dashboard
+    if (token && req.nextUrl.pathname === "/") {
         return NextResponse.redirect(new URL("/dashboard", req.url));
     }
 
