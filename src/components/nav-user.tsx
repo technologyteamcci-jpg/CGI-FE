@@ -28,6 +28,11 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { cookieKey, useAuthStore } from "@/stores/auth.store"
+import { useLogout } from "@/services/authentication.services"
+import { destroyCookie } from "nookies"
+import { useRouter } from "next/navigation";
+
 
 export function NavUser({
   user,
@@ -38,7 +43,33 @@ export function NavUser({
     avatar: string
   }
 }) {
+  const router = useRouter();
   const { isMobile } = useSidebar()
+  const { refresh, logoutAccount } = useAuthStore();
+  const { mutateAsync: _logout } = useLogout();
+
+  const logoutNow = async (code?: string) => {
+    if (refresh) {
+      _logout({ refreshToken: refresh?.token || "" });
+    }
+
+    destroyCookie(null, cookieKey, { path: "/" });
+    destroyCookie(null, "OTP_VERIFIED", { path: "/" });
+    destroyCookie(null, "PERMISSION", { path: "/" });
+    destroyCookie(null, "ROLE", { path: "/" });
+    destroyCookie(null, "ACCESS", { path: "/" });
+
+    let message = "You have been logged out";
+
+    await logoutAccount();
+
+    if (code === "access_revoked") {
+      message =
+        "Your access has been revoked because you are logged in somewhere else";
+    }
+
+    router.push("/login");  // 👈 Redirect
+  };
 
   return (
     <SidebarMenu>
@@ -98,7 +129,7 @@ export function NavUser({
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
+            <DropdownMenuItem onClick={() => logoutNow()}>
               <IconLogout />
               Log out
             </DropdownMenuItem>
