@@ -1,5 +1,3 @@
-"use client"
-
 import { ColumnDef } from "@tanstack/react-table"
 import { ArrowUpDown, MoreHorizontal } from "lucide-react"
 
@@ -12,64 +10,81 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { ICampus } from "@/interfaces/campus"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
-export type Campus = {
-    id: string
-    amount: number
-    status: "pending" | "processing" | "success" | "failed" | "completed"
-    email: string
-}
 
-export const columns: ColumnDef<Campus>[] = [
+export const columns: ColumnDef<ICampus>[] = [
     {
-        accessorKey: "status",
-        header: "Status",
+        accessorKey: "name",
+        header: ({ column }) => (
+            <Button
+                variant="ghost"
+                onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+            >
+                Campus Name
+                <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+        ),
     },
     {
-        accessorKey: "email",
-        header: ({ column }) => {
-            return (
-                <Button
-                    variant="ghost"
-                    onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-                >
-                    Email
-                    <ArrowUpDown className="ml-2 h-4 w-4" />
-                </Button>
-            )
+        accessorKey: "state",
+        header: "State",
+    },
+    {
+        accessorKey: "country",
+        header: "Country",
+    },
+    {
+        accessorKey: "residentPastorId",
+        header: "Resident Pastor",
+    },
+    {
+        accessorKey: "pastorsIds",
+        header: "Pastors Count",
+        cell: ({ row }) => row.original.pastorsIds?.length || 0,
+    },
+    {
+        accessorKey: "location",
+        header: "Location",
+        cell: ({ row }) => {
+            const { long, lat } = row.original.location || {};
+            return `${long}, ${lat}`;
         },
     },
     {
-        accessorKey: "amount",
-        header: "Amount",
-    }, {
         id: "actions",
         cell: ({ row }) => {
-            const payment = row.original
+            const campus = row.original;
 
             return (
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="ghost" className="h-8 w-8 p-0">
-                            <span className="sr-only">Open menu</span>
                             <MoreHorizontal className="h-4 w-4" />
                         </Button>
                     </DropdownMenuTrigger>
+
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                        <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(payment.id)}
-                        >
-                            Copy payment ID
+
+                        <DropdownMenuItem>
+                            View campus details
                         </DropdownMenuItem>
+
                         <DropdownMenuSeparator />
-                        <DropdownMenuItem>View customer</DropdownMenuItem>
-                        <DropdownMenuItem>View payment details</DropdownMenuItem>
+
+                        <DropdownMenuItem>
+                            Edit campus
+                        </DropdownMenuItem>
+
+                        <DropdownMenuItem>
+                            Delete campus
+                        </DropdownMenuItem>
                     </DropdownMenuContent>
                 </DropdownMenu>
-            )
+            );
         },
     },
-]
+];

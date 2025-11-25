@@ -429,43 +429,6 @@ export interface TwoFAData {
 }
 
 export interface Account {
-  // id: string;
-  // firstName: string;
-  // lastName: string;
-  // email: string;
-  // phone?: string;
-  // password: string;
-  // timeZone: string;
-  // role: "client" | "internal";
-  // clientId?: string;
-  // department?: string;
-  // createdAt: string;
-  // signature?: string;
-  // // Stringified ISO Date
-  // updatedAt: string;
-  // permissions:
-  //   | "superadmin"
-  //   | "admin"
-  //   | "spc"
-  //   | "sales"
-  //   | "billing"
-  //   | "staffing"
-  //   | "csm";
-  // title?: string;
-  // pin?: string;
-  // lawFirmName?: string;
-  // imageFile?: string;
-  // isRemoved?: boolean;
-  // isApproved?: boolean;
-  // isVerified?: boolean;
-  // meetingLink?: string;
-  // hubstaffId?: string;
-  // clientObj?: ClientData[];
-  // access: Permission[];
-  // notificationsProfile?: INotificationProfile;
-  // mustCompleteRegistration?: boolean;
-  // showSatisfactionReport?: boolean;
-  // twoFA?: TwoFAData;
   id: string;
   firstName: string;
   lastName: string;
