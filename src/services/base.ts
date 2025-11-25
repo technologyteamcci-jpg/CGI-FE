@@ -16,7 +16,7 @@ class HttpFacade {
   private http;
   private httpMultipart;
 
-  private baseUrl = "/server/";
+  private baseUrl = `${process.env.NEXT_PUBLIC_BASE_URL}`;
 
   constructor() {
     this.http = axios.create({
