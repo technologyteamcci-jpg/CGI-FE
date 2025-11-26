@@ -7,6 +7,7 @@ import { DataTable } from "./data-table";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
+import CreateCampusModal from "./components/CreateCampusModal";
 
 // import {
 //     Button,
@@ -22,6 +23,10 @@ function Page() {
 
     const [search, setSearch] = useState("");
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+    const pastors = [
+        { id: "1", name: "Pastor John" },
+        { id: "2", name: "Pastor Mary" },
+    ];
 
     const handleCreateCampus = () => setIsCreateModalOpen(true);
     const handleImportMultiple = () => {
@@ -71,23 +76,8 @@ function Page() {
             // searchTerm={search}
             />
 
-            {/* ⚠️ Create Modal (placeholder) */}
-            {isCreateModalOpen && (
-                <div className="fixed inset-0 bg-black/40 flex justify-center items-center z-50">
-                    <div className="bg-white rounded-lg p-6 w-[400px] shadow-xl">
-                        <h2 className="text-lg font-semibold mb-4">Create Campus</h2>
+            <CreateCampusModal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} pastors={pastors} />
 
-                        {/* Add your form fields here */}
-
-                        <div className="flex justify-end gap-3 mt-6">
-                            <Button variant="outline" onClick={() => setIsCreateModalOpen(false)}>
-                                Cancel
-                            </Button>
-                            <Button>Create</Button>
-                        </div>
-                    </div>
-                </div>
-            )}
 
         </div>
     );
