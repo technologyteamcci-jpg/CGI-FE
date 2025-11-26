@@ -3,11 +3,12 @@
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
+import { IPastor } from "@/interfaces/pastors";
 
 interface CreateCampusModalProps {
     isOpen: boolean;
     onClose: () => void;
-    pastors: { id: string; name: string }[];
+    pastors: IPastor[] | [];
 }
 
 const CampusSchema = Yup.object().shape({
@@ -124,7 +125,7 @@ export default function CreateCampusModal({
                                     <option value="">Select Pastor</option>
                                     {pastors.map((p) => (
                                         <option key={p.id} value={p.id}>
-                                            {p.name}
+                                            {p.firstName} {p.lastName}
                                         </option>
                                     ))}
                                 </Field>

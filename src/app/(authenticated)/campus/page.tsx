@@ -8,25 +8,20 @@ import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import CreateCampusModal from "./components/CreateCampusModal";
+import { useGetPastors } from "@/services/pastors.services";
 
-// import {
-//     Button,
-//     Input,
-//     DropdownMenu,
-//     DropdownMenuTrigger,
-//     DropdownMenuContent,
-//     DropdownMenuItem,
-// } from "@/components/ui";
 
 function Page() {
     const { data, isLoading } = useGetCampus();
+    const { data: pastors, isLoading: pastorsIsloading } = useGetPastors();
+
 
     const [search, setSearch] = useState("");
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-    const pastors = [
-        { id: "1", name: "Pastor John" },
-        { id: "2", name: "Pastor Mary" },
-    ];
+    // const pastors = [
+    //     { id: "1", name: "Pastor John" },
+    //     { id: "2", name: "Pastor Mary" },
+    // ];
 
     const handleCreateCampus = () => setIsCreateModalOpen(true);
     const handleImportMultiple = () => {
@@ -76,7 +71,7 @@ function Page() {
             // searchTerm={search}
             />
 
-            <CreateCampusModal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} pastors={pastors} />
+            <CreateCampusModal isOpen={isCreateModalOpen} onClose={() => setIsCreateModalOpen(false)} pastors={pastors ?? []} />
 
 
         </div>
