@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import React, { Suspense } from 'react'
 
 export const metadata: Metadata = {
-    title: "Legal Soft Platform",
-    description: "Manage your Virtual Legal Staff",
+    title: "CCI",
+    description: "Celebration Church International Admin ",
 };
 
 
