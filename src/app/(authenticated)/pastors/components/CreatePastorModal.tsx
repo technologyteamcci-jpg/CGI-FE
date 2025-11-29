@@ -4,6 +4,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { IPastor } from "@/interfaces/pastors";
+import { useCreatePastor } from "@/services/pastors.services";
+import { toast } from "sonner";
 
 interface CreatePastorModalProps {
     isOpen: boolean;
@@ -33,10 +35,14 @@ export default function CreatePastorModal({
     onClose,
 }: CreatePastorModalProps) {
     if (!isOpen) return null;
+    const { mutateAsync: _savePastor } = useCreatePastor();
+
 
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
-            <div className="bg-white rounded-xl p-6 w-[500px] shadow-xl border border-gray-200">
+            <div className="bg-white rounded-xl p-6 w-[500px] shadow-xl border border-gray-200 
+                max-h-[90vh] overflow-y-auto">
+                {/* <div className="bg-white rounded-xl p-6 w-[500px] shadow-xl border border-gray-200"> */}
 
                 <h2 className="text-xl font-semibold mb-6">Create Pastor</h2>
 
@@ -70,32 +76,29 @@ export default function CreatePastorModal({
 
                         ordinationDate: undefined,
                         profileImage: "",
-                        bio: "",
 
-                        socialLinks: {
-                            facebook: "",
-                            twitter: "",
-                            instagram: "",
-                            linkedin: "",
-                        },
 
-                        createdAt: undefined,
-                        updatedAt: undefined,
+
                     }}
                     validationSchema={PastorSchema}
                     validateOnBlur={false}
                     validateOnChange={false}
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
+                            await _savePastor({ payload: values });
                             console.log("Submitting Pastor:", values);
                             onClose();
-                        } finally {
+                        } catch (e) {
+                            toast.error("Error when creating pastors record", { position: "top-right" })
+                        }
+                        finally {
+                            toast.success("Pastor record Saved", { position: "top-right" })
                             setSubmitting(false);
                         }
                     }}
                 >
                     {({ errors, isSubmitting }) => (
-                        <Form className="space-y-4">
+                        <Form className="space-y-4 ">
 
                             {/* First Name */}
                             <div className="flex flex-col gap-1">

@@ -4,7 +4,8 @@ import "./globals.css";
 import ReactQueryClient from "@/config/ReactQueryClient";
 import { Suspense } from "react";
 import NextTopLoader from "nextjs-toploader";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "@/components/ui/sonner";
+// import { Toaster } from "react-hot-toast";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",

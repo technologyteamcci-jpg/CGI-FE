@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useGetCampus } from "@/services/campus.services";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Input } from "@/components/ui/input";
@@ -33,7 +32,7 @@ function Page() {
 
                 {/* Search Field */}
                 <Input
-                    placeholder="Search campus..."
+                    placeholder="Search pastor..."
                     value={search}
                     onChange={(e) => setSearch(e.target.value)}
                     className="max-w-xs"
@@ -49,7 +48,7 @@ function Page() {
 
                     <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={handleCreatePastor}>
-                            Create New Campus
+                            Add New
                         </DropdownMenuItem>
                         <DropdownMenuItem onClick={handleImportMultiple}>
                             Import Multiple
@@ -63,7 +62,7 @@ function Page() {
                 columns={columns}
                 data={data ?? []}
                 isLoading={isLoading}
-                header={"Campus"}
+                header={"Pastors"}
             // searchTerm={search}
             />
 
