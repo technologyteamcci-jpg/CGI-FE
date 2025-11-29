@@ -11,9 +11,16 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ICampus } from "@/interfaces/campus"
+import { IPastor } from "@/interfaces/pastors"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
+
+const getFullName = (pastor: any) => {
+    return [pastor.firstName, pastor.otherNames, pastor.lastName]
+        .filter(Boolean)
+        .join(" ");
+};
 
 export const columns: ColumnDef<ICampus>[] = [
     {
@@ -39,11 +46,15 @@ export const columns: ColumnDef<ICampus>[] = [
     {
         accessorKey: "residentPastorId",
         header: "Resident Pastor",
+        cell: ({ row }) => {
+            const pastor = row.original.residentPastorId;
+            return getFullName(pastor);
+        }
     },
     {
         accessorKey: "pastorsIds",
         header: "Pastors Count",
-        cell: ({ row }) => row.original.pastorsIds?.length || 0,
+        cell: ({ row }) => row.original.pastorsIds?.length + row.original.residentPastorId ? 1 : 0 || 0,
     },
     {
         accessorKey: "location",

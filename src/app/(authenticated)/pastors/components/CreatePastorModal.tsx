@@ -48,7 +48,7 @@ export default function CreatePastorModal({
 
                 <Formik<IPastor>
                     initialValues={{
-                        id: "",
+                        _id: "",
                         firstName: "",
                         lastName: "",
                         otherNames: "",

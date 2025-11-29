@@ -4,6 +4,8 @@ import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import { Button } from "@/components/ui/button";
 import { IPastor } from "@/interfaces/pastors";
+import { useCreateCampus } from "@/services/campus.services";
+import { toast } from "sonner";
 
 interface CreateCampusModalProps {
     isOpen: boolean;
@@ -28,6 +30,7 @@ export default function CreateCampusModal({
     pastors,
 }: CreateCampusModalProps) {
     if (!isOpen) return null;
+    const { mutateAsync: _saveCampus } = useCreateCampus();
 
     return (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex justify-center items-center z-50">
@@ -48,9 +51,14 @@ export default function CreateCampusModal({
                     validateOnChange={false}
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
-                            console.log(values);
+                            await _saveCampus({ payload: values });
+                            console.log("Submitting Pastor:", values);
                             onClose();
-                        } finally {
+                        } catch (e) {
+                            toast.error("Error when creating campus", { position: "top-right" })
+                        }
+                        finally {
+                            toast.success("Campus created successfully", { position: "top-right" })
                             setSubmitting(false);
                         }
                     }}
@@ -124,7 +132,7 @@ export default function CreateCampusModal({
                                 >
                                     <option value="">Select Pastor</option>
                                     {pastors.map((p) => (
-                                        <option key={p.id} value={p.id}>
+                                        <option key={p._id} value={p._id}>
                                             {p.firstName} {p.lastName}
                                         </option>
                                     ))}

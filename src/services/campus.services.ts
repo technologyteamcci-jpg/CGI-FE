@@ -22,7 +22,7 @@ export const useCreateCampus = () =>
 
         onSuccess: () => {
             queryClient.invalidateQueries({
-                queryKey: ["campus"],
+                queryKey: ["campus-list"],
             });
         },
     });
