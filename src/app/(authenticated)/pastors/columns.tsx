@@ -11,6 +11,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { IPastor } from "@/interfaces/pastors"
+import { PastorSideModal } from "./components/PastorSideModal"
 
 // Helper: Build full name
 const getFullName = (pastor: IPastor) => {
@@ -75,14 +76,8 @@ export const columns: ColumnDef<IPastor>[] = [
                     <DropdownMenuContent align="end">
                         <DropdownMenuLabel>Actions</DropdownMenuLabel>
 
-                        <DropdownMenuItem>
-                            View pastor details
-                        </DropdownMenuItem>
-
-                        <DropdownMenuItem>
-                            Edit pastor
-                        </DropdownMenuItem>
-
+                        <PastorSideModal pastor={pastor} triggerText="View pastor details" />
+                        <PastorSideModal pastor={pastor} triggerText="Edit pastor" isEdit={true} />
                         <DropdownMenuSeparator />
 
                         <DropdownMenuItem className="text-red-600">
