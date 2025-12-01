@@ -13,7 +13,7 @@ import CreatePastorModal from "./components/CreatePastorModal";
 function Page() {
     const { data, isLoading } = useGetPastors();
 
-    const { mutateAsync: _deletePastor } = useDeletePastor();
+    const { mutateAsync: _deletePastor, isPending } = useDeletePastor();
 
     const [search, setSearch] = useState("");
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -60,7 +60,7 @@ function Page() {
 
             {/* Table */}
             <DataTable
-                columns={columns((id) => _deletePastor({ id }))}
+                columns={columns((id) => _deletePastor({ id }), isPending)}
                 data={data ?? []}
                 isLoading={isLoading}
                 header={"Pastors"}

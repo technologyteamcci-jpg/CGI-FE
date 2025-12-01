@@ -26,3 +26,17 @@ export const useCreateCampus = () =>
             });
         },
     });
+
+
+export const useDeleteCampus = () =>
+    useMutation<any, string, { id: string; }>({
+        onSuccess: (_, { id }) => {
+            queryClient.invalidateQueries({
+                queryKey: ["campus-list"],
+            });
+        },
+        mutationFn: async (props) =>
+            await http.delete({
+                url: `/campus/${props.id}`,
+            }),
+    });

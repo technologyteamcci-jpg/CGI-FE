@@ -1,4 +1,5 @@
 export interface ICampus {
+    _id: string
     name: string;
     state: string;
     country: string;

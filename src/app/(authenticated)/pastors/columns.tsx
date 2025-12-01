@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table"
-import { ArrowUpDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, Loader2, MoreHorizontal } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -23,7 +23,8 @@ const getFullName = (pastor: IPastor) => {
 
 // ❗ columns now receives deletePastor callback
 export const columns = (
-    deletePastor: (id: string) => Promise<void>
+    deletePastor: (id: string) => Promise<void>,
+    isDeleting: boolean
 ): ColumnDef<IPastor>[] => [
         {
             accessorKey: "firstName",
@@ -99,7 +100,14 @@ export const columns = (
                                             openDialog();
                                         }}
                                     >
-                                        Delete pastor
+                                        {isDeleting ? (
+                                            <>
+                                                <Loader2 className="h-4 w-4 animate-spin" />
+                                                Deleting...
+                                            </>
+                                        ) : (
+                                            "Delete Pastor"
+                                        )}
                                     </DropdownMenuItem>
                                 )}
                             </DeleteConfirm>

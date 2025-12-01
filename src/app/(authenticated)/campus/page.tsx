@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useGetCampus } from "@/services/campus.services";
+import { useDeleteCampus, useGetCampus } from "@/services/campus.services";
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Input } from "@/components/ui/input";
@@ -14,8 +14,7 @@ import { useGetPastors } from "@/services/pastors.services";
 function Page() {
     const { data, isLoading } = useGetCampus();
     const { data: pastors, isLoading: pastorsIsloading } = useGetPastors();
-
-
+    const { mutateAsync: _deleteCampus, isPending } = useDeleteCampus();
     const [search, setSearch] = useState("");
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
     // const pastors = [
@@ -64,7 +63,7 @@ function Page() {
 
             {/* Table */}
             <DataTable
-                columns={columns}
+                columns={columns((id) => _deleteCampus({ id }), isPending)}
                 data={data ?? []}
                 isLoading={isLoading}
                 header={"Campus"}
