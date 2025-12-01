@@ -25,3 +25,41 @@ export const useCreatePastor = () =>
             });
         },
     });
+
+
+export const useUpdatePastor = () =>
+    useMutation<
+        any,
+        string,
+        { pastorId: string; payload: Partial<IPastor> }
+    >({
+        onSuccess: (_, { pastorId }) => {
+            queryClient.invalidateQueries({
+                queryKey: ["pastor", { pastorId }],
+
+            });
+            queryClient.invalidateQueries({
+                queryKey: ["pastors-list"],
+
+            });
+        },
+        mutationFn: async (props) =>
+            await http.patch({
+                url: `/pastors/${props.pastorId}`,
+                body: props.payload,
+            }),
+    });
+
+
+export const useDeletePastor = () =>
+    useMutation<any, string, { id: string; }>({
+        onSuccess: (_, { id }) => {
+            queryClient.invalidateQueries({
+                queryKey: ["pastors-list"],
+            });
+        },
+        mutationFn: async (props) =>
+            await http.delete({
+                url: `/pastors/${props.id}`,
+            }),
+    });

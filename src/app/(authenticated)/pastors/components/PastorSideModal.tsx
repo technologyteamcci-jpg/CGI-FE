@@ -11,31 +11,40 @@ import {
 import { DropdownMenuItem } from "@/components/ui/dropdown-menu";
 import { IPastor } from "@/interfaces/pastors";
 import { PastorDetails } from "./PastorDetails";
+import { useUpdatePastor } from "@/services/pastors.services";
 
 interface PastorSideModalProps {
     pastor: IPastor;
     triggerText: string;
-    isEdit?: boolean
+    isEdit?: boolean;
 }
 
-export function PastorSideModal({ pastor, triggerText, isEdit }: PastorSideModalProps) {
+export function PastorSideModal({
+    pastor,
+    triggerText,
+    isEdit = false,
+}: PastorSideModalProps) {
     const [open, setOpen] = useState(false);
 
     return (
         <>
-            {/* Trigger — just a normal DropdownMenuItem */}
+            {/* Trigger — normal dropdown item */}
             <DropdownMenuItem
                 onClick={(e) => {
-                    e.stopPropagation(); // Prevent dropdown close from interfering
+                    e.stopPropagation(); // Prevent dropdown from interfering
+                    e.preventDefault();
                     setOpen(true);
                 }}
             >
                 {triggerText}
             </DropdownMenuItem>
 
-            {/* Sheet — controlled via state */}
+            {/* Controlled Sheet */}
             <Sheet open={open} onOpenChange={setOpen}>
-                <SheetContent side="right" className="w-1/2 overflow-y-auto">
+                <SheetContent
+                    side="right"
+                    className="w-[1000px] max-w-full h-full p-4 overflow-y-auto"
+                >
                     <SheetHeader>
                         <SheetTitle>{triggerText}</SheetTitle>
                         <SheetDescription>

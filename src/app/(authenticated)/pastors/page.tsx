@@ -6,13 +6,14 @@ import { DataTable } from "./data-table";
 import { Input } from "@/components/ui/input";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import { useGetPastors } from "@/services/pastors.services";
+import { useDeletePastor, useGetPastors } from "@/services/pastors.services";
 import CreatePastorModal from "./components/CreatePastorModal";
 
 
 function Page() {
     const { data, isLoading } = useGetPastors();
 
+    const { mutateAsync: _deletePastor } = useDeletePastor();
 
     const [search, setSearch] = useState("");
     const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
@@ -59,7 +60,7 @@ function Page() {
 
             {/* Table */}
             <DataTable
-                columns={columns}
+                columns={columns((id) => _deletePastor({ id }))}
                 data={data ?? []}
                 isLoading={isLoading}
                 header={"Pastors"}

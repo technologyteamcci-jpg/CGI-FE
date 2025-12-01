@@ -86,7 +86,6 @@ export default function CreatePastorModal({
                     onSubmit={async (values, { setSubmitting }) => {
                         try {
                             await _savePastor({ payload: values });
-                            console.log("Submitting Pastor:", values);
                             onClose();
                         } catch (e) {
                             toast.error("Error when creating pastors record", { position: "top-right" })
