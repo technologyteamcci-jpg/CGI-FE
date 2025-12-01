@@ -17,6 +17,7 @@ import { toast } from "sonner";
 export function EventCard({ event }: any) {
     return (
         <Card className="overflow-hidden relative rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border">
+
             {/* IMAGE SECTION */}
             <div className="relative w-full h-40">
                 <Image
@@ -28,6 +29,19 @@ export function EventCard({ event }: any) {
 
                 {/* Gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
+
+                {/* SHOW BADGE ONLY IF RECURRING */}
+                {event.recurring && (
+                    <span
+                        className="
+                            absolute top-3 left-3 z-20 
+                            bg-blue-600 text-white text-xs font-semibold
+                            px-2 py-1 rounded-md shadow
+                        "
+                    >
+                        Recurring
+                    </span>
+                )}
 
                 {/* ACTION BUTTON (TOP RIGHT) */}
                 <div className="absolute top-3 right-3 z-20">
