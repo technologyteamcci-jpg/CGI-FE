@@ -149,7 +149,7 @@ export function DataTable<TData, TValue>({
             </div>
 
             {/* Footer pager */}
-            <div className="mt-2 flex items-center justify-between py-2">
+            <div className="mt-2 flex items-center justify-between py-2!">
                 <div className="text-sm text-muted-foreground">
                     {typeof start === "number" && typeof end === "number" && typeof totalResults === "number" ? (
                         <span>
